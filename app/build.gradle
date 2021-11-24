@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "jacoco"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -26,12 +27,39 @@ android {
         enabledForTests = true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     // Always show the result of every unit test when running via command line, even if it passes.
     testOptions.unitTests {
         includeAndroidResources = true
-
+        all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
         // ...
     }
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+task jacocoTestReport(
+        type: JacocoReport,
+        dependsOn: "testDebugUnitTest",
+        group: "verification"
+) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    getSourceDirectories().from = "${projectDir}/src/main/java"
+    getClassDirectories().from = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug")
+    getExecutionData().from = "${buildDir}/jacoco/testDebugUnitTest.exec"
 }
 
 dependencies {
