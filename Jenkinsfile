@@ -5,10 +5,11 @@ pipeline {
         stage('tests') {
             steps {
                 bat 'java -version'
+                bat 'gradlew --version'
                 // sh 'git clone https://github.com/jio-kisou/android-testing-starter_code.git'
                 // dir('android-testing-starter_code'){
-                    bat 'gradlew testDebugUnitTest'
-                    bat 'gradlew jacocoTestReport'
+                    //bat 'gradlew testDebugUnitTest'
+                    //bat 'gradlew jacocoTestReport'
                 // }
                 // git branch: 'main', url: 'https://github.com/jio-kisou/android-testing-starter_code'
                 // gradlew 'testDebugUnitTest'
