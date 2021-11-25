@@ -4,11 +4,11 @@ pipeline {
     stages {
         stage('tests') {
             steps {
-                sh 'git clone https://github.com/jio-kisou/android-testing-starter_code.git'
-                dir('android-testing-starter_code'){
+                // sh 'git clone https://github.com/jio-kisou/android-testing-starter_code.git'
+                // dir('android-testing-starter_code'){
                     sh '.\gradlew testDebugUnitTest'
-                    sh .\'gradlew jacocoTestReport'
-                }
+                    sh '.\gradlew jacocoTestReport'
+                // }
                 // git branch: 'main', url: 'https://github.com/jio-kisou/android-testing-starter_code'
                 // gradlew 'testDebugUnitTest'
             }
